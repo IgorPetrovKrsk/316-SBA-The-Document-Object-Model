@@ -19,22 +19,51 @@ let imgArray = []; //array of images numbers
 let seconds=5;
 let timerIDBeforeStart; //to stop timer
 let timerIDAfterStart; //to stop timer and store current seconds
+let selectedImg = null;
+let selectedImg2= null;
 
 
 // adding event listeners
 newGameForm.addEventListener(`submit`, newGameFormSubmit);
 regUserName.addEventListener('input', removeErrorClass); //removing error class when starting typoing
 regEmail.addEventListener('input', removeErrorClass);
-gameTable.addEventListener(`click`, clickOnImg);
+
+//function checkIfGameIsWin
+
+function closeImgAndRestoreEventListener() {
+    selectedImg.classList.remove(`img_open`);        
+    selectedImg2.classList.remove(`img_open`);     
+    selectedImg.classList.add(`img_closed`);           
+    selectedImg2.classList.add(`img_closed`);           
+    selectedImg.src = `../images/image_back.png`;
+    selectedImg2.src = `../images/image_back.png`;
+    selectedImg=null;
+    selectedImg2=null;
+    gameTable.addEventListener(`click`, clickOnImg); //reading the listener
+}
 
 function clickOnImg(ev) {
     if (ev.target.nodeName != `IMG`) {
         return;
     }
-    if (ev.target.classList.find(it => it == `img_closed`)){
-        ev.target.classList.remove(`img_closed`);
-        ev.target.classList.add(`img_selected`);
-        //ev.target.src = `../images/image_${imgArray[ij]}.png`
+    if (ev.target.classList.contains(`img_closed`)){
+        ev.target.classList.remove(`img_closed`);        
+        ev.target.src = `../images/${ev.target.name}.png`;
+        if (!selectedImg){
+            selectedImg = ev.target; //store this one
+        } else { 
+            if (selectedImg.name == ev.target.name){
+                ev.target.classList.add(`img_open`);
+                selectedImg.classList.add(`img_open`);
+                selectedImg=null;
+                selectedImg2=null;
+                //checkIfGameIsWin();
+            } else { //close both images
+                selectedImg2 = ev.target;
+                gameTable.removeEventListener(`click`, clickOnImg); //remove the listener and get it back after a while
+                setTimeout(closeImgAndRestoreEventListener,1000);
+            }
+        }
     }
 }
 
@@ -72,6 +101,7 @@ function startGame() {
         it.classList.remove(`img_open`);
         it.classList.add(`img_closed`);
     });
+    gameTable.addEventListener(`click`, clickOnImg); //lets look for clicks only after game starts
 }
 
 function createGameFiled(width, height) {
@@ -87,7 +117,7 @@ function createGameFiled(width, height) {
             let templateDiv = newImg.firstElementChild;
             let newImgTag = templateDiv.firstElementChild;
             newImgTag.src = `../images/image_${imgArray[ij]}.png`;
-            newImgTag.classList.add(`image_${imgArray[ij]}`)
+            newImgTag.name = `image_${imgArray[ij]}`;
             ij++;
             td.appendChild(newImg);
             tr.appendChild(td);
