@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory game</title>
+  <!-- Font Awesome for Icons -->
+  <script src="https://kit.fontawesome.com/d8f052c6cf.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../styles/style.css">
+  <script defer src="../scripts/index.js"></script>
+</head>
+
+<body>
+  <div class="form-container">
+    <div>
+      <h2>Simple memory game</h2>
+      <p>Please enter your name, email and select game type.</p>
+
+      <form id="newGameForm">
+        <input name="username" type="text" placeholder="Username" required minlength=4 />
+        <span class="input-icon"><i class="fa-solid fa-user"></i></span><br />
+        <input name="email" type="email" placeholder="Email" required />
+        <span class="input-icon"><i class="fa-solid fa-envelope"></i></span><br />
+        <div class="flex-row">
+          <p>Please select type of game:</p>
+          <input name="game-type" id="game-type-4-3" type="radio" checked />
+          <label for="game-type-4-3">4 x 3</label>
+          <input name="game-type" id="game-type-4-4" type="radio" />
+          <label for="game-type-4-4">4 x 4</label>
+          <input name="game-type" id="game-type-5-4" type="radio" />
+          <label for="game-type-5-4">5 x 4</label>
+          <input name="game-type" id="game-type-6-4" type="radio" />
+          <label for="game-type-6-4">6 x 4</label>
+          <input name="game-type" id="game-type-6-5" type="radio" />
+          <label for="game-type-6-5">6 x 5</label>
+          <input type="submit" value="Start the game" />
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Error Display Container -->
+  <div id="errorDisplay">
+    <ul id="errorList">
+
+    </ul>
+  </div>
+  <div class="game-field">
+    <div>
+      <h2>Game field</h2>
+      <p>Here will be game text.</p>
+      <table id="game-table">
+
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
