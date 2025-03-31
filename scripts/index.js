@@ -28,7 +28,22 @@ newGameForm.addEventListener(`submit`, newGameFormSubmit);
 regUserName.addEventListener('input', removeErrorClass); //removing error class when starting typoing
 regEmail.addEventListener('input', removeErrorClass);
 
-//function checkIfGameIsWin
+function checkIfGameIsWin(){
+    const allImg = gameField.querySelectorAll("img");
+    let isGameWin = true;
+    for (it of allImg) {
+        if (!it.classList.contains('img_open')){
+            isGameWin = false;
+            break;
+        }
+    }
+    if (isGameWin){
+        clearInterval(timerIDAfterStart);
+        gameSuggestion.textContent = `CONGRATULATIONS! You have beat the game in ${seconds} seconds`;
+        setTimeout(()=>{alert(`Congratulations!!!!`)},100);        
+    }
+    
+}
 
 function closeImgAndRestoreEventListener() {
     selectedImg.classList.remove(`img_open`);        
@@ -57,7 +72,7 @@ function clickOnImg(ev) {
                 selectedImg.classList.add(`img_open`);
                 selectedImg=null;
                 selectedImg2=null;
-                //checkIfGameIsWin();
+                checkIfGameIsWin();
             } else { //close both images
                 selectedImg2 = ev.target;
                 gameTable.removeEventListener(`click`, clickOnImg); //remove the listener and get it back after a while
