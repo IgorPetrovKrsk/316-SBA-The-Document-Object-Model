@@ -11,9 +11,11 @@ const gameTable = document.getElementById(`game-table`);
 const elError = document.getElementById(`errorDisplay`);
 const elErrorList = document.getElementById('errorList');
 const imageTemplate = document.getElementById(`image-template`);
+const imageTemplate = document.getElementById(`image-template`);
 
 //decraringGlobalVariables
 let imgArray = []; //array of images numbers
+
 
 // adding event listeners
 newGameForm.addEventListener(`submit`, newGameFormSubmit);
@@ -66,6 +68,24 @@ function createGameFiled(width, height) {
     gameTable.appendChild(fieldFragment);
 }
 
+function createGameFiled(width, height) {
+    gameTable.innerHTML = ``;
+    let fieldFragment = document.createDocumentFragment();
+    let tbody = document.createElement(`tbody`);
+    for (let i = 0; i < height; i++) {
+        let tr = document.createElement('tr');
+        for (let j = 0; j < width; j++) {
+            let td = document.createElement('td');
+            let newImg = imageTemplate.content.cloneNode(true);
+            td.appendChild(newImg);            
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+    }
+    fieldFragment.appendChild(tbody); //fragment done 
+    gameTable.appendChild(fieldFragment);
+}
+
 function startGame() {
     let gameTableWidth = 0;
     let gameTableHeight = 0;
@@ -79,8 +99,8 @@ function startGame() {
             gameTableHeight = parseInt(it.id.split(`-`)[3]);
         }
     });
-    createGameArray(gameTableWidth * gameTableHeight / 2); //how much random pictures need
     createGameFiled(+gameTableWidth, +gameTableHeight);
+
 
 }
 
