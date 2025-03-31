@@ -10,12 +10,22 @@ const gameField = document.getElementsByClassName('game-field')[0];
 const gameTable = document.getElementById(`game-table`);
 const elError = document.getElementById(`errorDisplay`);
 const elErrorList = document.getElementById('errorList');
+const imageTemplate = document.getElementById(`image-template`);
 
+//decraringGlobalVariables
 
 // adding event listeners
 newGameForm.addEventListener(`submit`, newGameFormSubmit);
 regUserName.addEventListener('input', removeErrorClass); //removing error class when starting typoing
 regEmail.addEventListener('input', removeErrorClass);
+gameTable.addEventListener(`click`, clickOnImg);
+
+function clickOnImg(ev) {
+    if (ev.target.nodeName != `IMG`) {
+        return;
+    }
+    alert(ev.target);
+}
 
 function removeErrorClass(ev) {
     ev.target.classList.remove(`error`);
@@ -52,12 +62,40 @@ function validateEmail() {
     return errors;
 }
 
-function startGame(){
+function createGameFiled(width, height) {
+    gameTable.innerHTML = ``;
+    let fieldFragment = document.createDocumentFragment();
+    let tbody = document.createElement(`tbody`);
+    for (let i = 0; i < height; i++) {
+        let tr = document.createElement('tr');
+        for (let j = 0; j < width; j++) {
+            let td = document.createElement('td');
+            let newImg = imageTemplate.content.cloneNode(true);
+            td.appendChild(newImg);            
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+    }
+    fieldFragment.appendChild(tbody); //fragment done 
+    gameTable.appendChild(fieldFragment);
+}
+
+function startGame() {
+    let gameTableWidth = 0;
+    let gameTableHeight = 0;
     elErrorList.style.visibility = `hidden`;
     gameField.style.visibility = `visible`;
     //find what tipy of field was selected
+    const regGameType = newGameForm.querySelectorAll("input[name='game-type']");
+    regGameType.forEach(it => {
+        if (it.checked == true) { //this calls for try catch
+            gameTableWidth = parseInt(it.id.split(`-`)[2]);
+            gameTableHeight = parseInt(it.id.split(`-`)[3]);
+        }
+    });
+    createGameFiled(+gameTableWidth, +gameTableHeight);
 
-    
+
 }
 
 function newGameFormSubmit(ev) {
@@ -67,7 +105,7 @@ function newGameFormSubmit(ev) {
         it.classList.remove('error');
     })
     elErrorList.innerHTML = ``; //clearing the error list
-    
+
     errors = errors.concat(validateUserName());
     errors = errors.concat(validateEmail());
 

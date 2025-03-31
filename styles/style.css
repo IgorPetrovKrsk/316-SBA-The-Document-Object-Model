@@ -12,7 +12,7 @@ body {
 }
 .form-container {
   position: absolute;
-  background: #eee;
+  background: #f2eadb;
   display: flex;
   width: 700px;
   height: 220px;
@@ -46,6 +46,7 @@ body {
 .form-container input[type="text"],
 .form-container input[type="email"]
  {
+  background-color: #f2eadb;
   width: 450px;
   padding: 7px 7px 7px 40px;
   margin: 5px 0px;
@@ -89,7 +90,7 @@ body {
   margin: 5px 0px;
   width: 30px;
   height: 29px;
-  background: #ddd;
+  background: #f2eadb;
   outline: 1px solid #888;
   border-right: 0px solid #0000;
   border-radius: 5px 0px 0px 5px;
@@ -126,7 +127,7 @@ a:hover {
 .game-field {
   visibility: hidden;
   position: absolute; 
-  background: #eee;
+  background: #f2eadb;
   /* display: flex; */
   width: 96%;
   top: 245px;
@@ -146,6 +147,13 @@ a:hover {
 .game-field p {
   padding: 5px 10px;
   margin: 2.5px 5px;
+}
+.game-field table{
+  width: 100%;
+}
+
+.image{
+  text-align: center;
 }
 
 .error {
