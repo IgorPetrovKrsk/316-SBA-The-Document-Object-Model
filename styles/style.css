@@ -54,6 +54,13 @@ body {
   border: 0px solid #0000;
   border-radius: 5px;
 }
+.form-container input[type="radio"]
+ {
+  background-color: #f2eadb;
+  flood-color: #0079c0;
+}
+
+
 .form-container input[type="text"]:focus,
 .form-container input[type="email"]:focus
  {
