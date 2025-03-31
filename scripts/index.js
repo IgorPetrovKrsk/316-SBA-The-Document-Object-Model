@@ -8,13 +8,17 @@ const regUserName = newGameForm.querySelector("input[name='username']");
 const regEmail = newGameForm.querySelector("input[name='email']");
 const gameField = document.getElementsByClassName('game-field')[0];
 const gameTable = document.getElementById(`game-table`);
+const gameSuggestion = document.getElementById(`gameSuggestions`);
 const elError = document.getElementById(`errorDisplay`);
 const elErrorList = document.getElementById('errorList');
 const imageTemplate = document.getElementById(`image-template`);
-const imageTemplate = document.getElementById(`image-template`);
+
 
 //decraringGlobalVariables
 let imgArray = []; //array of images numbers
+let seconds=5;
+let timerIDBeforeStart; //to stop timer
+let timerIDAfterStart; //to stop timer and store current seconds
 
 
 // adding event listeners
@@ -27,7 +31,11 @@ function clickOnImg(ev) {
     if (ev.target.nodeName != `IMG`) {
         return;
     }
-    alert(ev.target);
+    if (ev.target.classList.find(it => it == `img_closed`)){
+        ev.target.classList.remove(`img_closed`);
+        ev.target.classList.add(`img_selected`);
+        //ev.target.src = `../images/image_${imgArray[ij]}.png`
+    }
 }
 
 function createGameArray(numOfRandomPictures) {
@@ -42,6 +50,28 @@ function createGameArray(numOfRandomPictures) {
     }
     imgArray.sort(() => Math.random() - 0.5); //randomizing pictures array
     // console.log(imgArray);
+}
+function updateGameTimer(){
+    seconds++;
+    gameSuggestion.textContent = `Current game lasts for ${seconds} seconds`;
+}
+
+function updateStartTimer() {
+    seconds--;
+    gameSuggestion.textContent = `Game starts in ${seconds}`
+    
+}
+
+function startGame() {
+    clearInterval(timerIDBeforeStart);
+    timerIDAfterStart = setInterval(updateGameTimer,1000);
+    gameSuggestion.textContent = `Current game lasts for 0 seconds`;
+    const allImg = gameField.querySelectorAll("img");
+    allImg.forEach (it => {
+        it.src = `../images/image_back.png`;
+        it.classList.remove(`img_open`);
+        it.classList.add(`img_closed`);
+    });
 }
 
 function createGameFiled(width, height) {
@@ -68,25 +98,7 @@ function createGameFiled(width, height) {
     gameTable.appendChild(fieldFragment);
 }
 
-function createGameFiled(width, height) {
-    gameTable.innerHTML = ``;
-    let fieldFragment = document.createDocumentFragment();
-    let tbody = document.createElement(`tbody`);
-    for (let i = 0; i < height; i++) {
-        let tr = document.createElement('tr');
-        for (let j = 0; j < width; j++) {
-            let td = document.createElement('td');
-            let newImg = imageTemplate.content.cloneNode(true);
-            td.appendChild(newImg);            
-            tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-    }
-    fieldFragment.appendChild(tbody); //fragment done 
-    gameTable.appendChild(fieldFragment);
-}
-
-function startGame() {
+function prepareGame() {
     let gameTableWidth = 0;
     let gameTableHeight = 0;
     elErrorList.style.visibility = `hidden`;
@@ -99,8 +111,12 @@ function startGame() {
             gameTableHeight = parseInt(it.id.split(`-`)[3]);
         }
     });
+    createGameArray(gameTableWidth*gameTableHeight/2)
     createGameFiled(+gameTableWidth, +gameTableHeight);
-
+    seconds = 1;
+    gameSuggestion.textContent = `Game starts in ${seconds}`
+    timerIDBeforeStart = setInterval(updateStartTimer,1000);
+    setTimeout(startGame,seconds*1000)
 
 }
 
@@ -127,7 +143,7 @@ function newGameFormSubmit(ev) {
         })
         elError.style.display = `block`;
     } else { //no errors starting the game
-        startGame();
+        prepareGame();
     }
 }
 

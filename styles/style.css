@@ -132,7 +132,7 @@ a:hover {
 }
 
 .game-field {
-  visibility: hidden;
+  /* visibility: hidden; */
   position: absolute; 
   background: #f2eadb;
   /* display: flex; */
@@ -152,6 +152,8 @@ a:hover {
   text-align: center;
 }
 .game-field p {
+  text-align: center;
+  font-weight: bold;
   padding: 5px 10px;
   margin: 2.5px 5px;
 }
@@ -168,4 +170,14 @@ a:hover {
 }
 #errorList{
   /* padding: 10px;  */
+}
+
+.img_open{ /* for images that are constantly open */
+
+}
+.img_closed{ /* for images that are closed */
+
+}
+.img_selected{ /* for image that are selected right now */
+
 }
