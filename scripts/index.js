@@ -16,7 +16,7 @@ const imageTemplate = document.getElementById(`image-template`);
 
 //decraringGlobalVariables
 let imgArray = []; //array of images numbers
-let seconds=5;
+let seconds=null;
 let timerIDBeforeStart; //to stop timer
 let timerIDAfterStart; //to stop timer and store current seconds
 let selectedImg = null;
@@ -158,7 +158,7 @@ function prepareGame() {
     });
     createGameArray(gameTableWidth*gameTableHeight/2)
     createGameFiled(+gameTableWidth, +gameTableHeight);
-    seconds = 1;
+    seconds = 10;
     gameSuggestion.textContent = `Game starts in ${seconds}`
     timerIDBeforeStart = setInterval(updateStartTimer,1000);
     setTimeout(startGame,seconds*1000)
@@ -191,15 +191,6 @@ function newGameFormSubmit(ev) {
         prepareGame();
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 function removeErrorClass(ev) {

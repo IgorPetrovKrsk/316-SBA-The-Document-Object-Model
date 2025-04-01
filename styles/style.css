@@ -132,7 +132,7 @@ a:hover {
 }
 
 .game-field {
-  /* visibility: hidden; */
+  visibility: hidden;
   position: absolute; 
   background: #f2eadb;
   /* display: flex; */
