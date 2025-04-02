@@ -40,7 +40,7 @@ function checkIfGameIsWin(){
     if (isGameWin){
         clearInterval(timerIDAfterStart);
         gameSuggestion.textContent = `CONGRATULATIONS! You have beat the game in ${seconds} seconds`;
-        setTimeout(()=>{alert(`Congratulations!!!!`)},100);        
+        setTimeout(()=>{alert(`Congratulations!!!!`)},500); //500 is > 400 for animation to end        
     }
     
 }
@@ -50,11 +50,16 @@ function closeImgAndRestoreEventListener() {
     selectedImg2.classList.remove(`img_open`);     
     selectedImg.classList.add(`img_closed`);           
     selectedImg2.classList.add(`img_closed`);           
-    selectedImg.src = `../images/image_back.png`;
-    selectedImg2.src = `../images/image_back.png`;
-    selectedImg=null;
-    selectedImg2=null;
-    gameTable.addEventListener(`click`, clickOnImg); //reading the listener
+    setTimeout (()=> {
+        selectedImg.src = `../images/image_back.png`; 
+        selectedImg=null;
+    },400);
+    setTimeout (()=> {
+        selectedImg2.src = `../images/image_back.png`; 
+        selectedImg2=null;
+        gameTable.addEventListener(`click`, clickOnImg); //readding the listener
+    },400);
+    
 }
 
 function clickOnImg(ev) {
@@ -63,7 +68,8 @@ function clickOnImg(ev) {
     }
     if (ev.target.classList.contains(`img_closed`)){
         ev.target.classList.remove(`img_closed`);        
-        ev.target.src = `../images/${ev.target.name}.png`;
+        setTimeout(()=>{ev.target.src = `../images/${ev.target.name}.png`;},400); //whole animation tooks 400 milisecconds so changing the image half way through
+        ev.target.classList.add(`img_open`);
         if (!selectedImg){
             selectedImg = ev.target; //store this one
         } else { 
@@ -76,7 +82,7 @@ function clickOnImg(ev) {
             } else { //close both images
                 selectedImg2 = ev.target;
                 gameTable.removeEventListener(`click`, clickOnImg); //remove the listener and get it back after a while
-                setTimeout(closeImgAndRestoreEventListener,1000);
+                setTimeout(closeImgAndRestoreEventListener,1000);                
             }
         }
     }
@@ -112,7 +118,9 @@ function startGame() {
     gameSuggestion.textContent = `Current game lasts for 0 seconds`;
     const allImg = gameField.querySelectorAll("img");
     allImg.forEach (it => {
-        it.src = `../images/image_back.png`;
+        setTimeout (()=> {
+            it.src = `../images/image_back.png`;
+        },400);
         it.classList.remove(`img_open`);
         it.classList.add(`img_closed`);
     });
