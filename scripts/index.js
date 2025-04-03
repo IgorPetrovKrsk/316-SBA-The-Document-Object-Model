@@ -25,7 +25,7 @@ let selectedImg2= null;
 
 // adding event listeners
 newGameForm.addEventListener(`submit`, newGameFormSubmit);
-regUserName.addEventListener('input', removeErrorClass); //removing error class when starting typoing
+regUserName.addEventListener('input', removeErrorClass); //removing error class when starting typing
 regEmail.addEventListener('input', removeErrorClass);
 
 function checkIfGameIsWin(){
