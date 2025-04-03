@@ -60,6 +60,12 @@ body {
   flood-color: #0079c0;
 }
 
+.form-container input[type="text"].error,
+.form-container input[type="email"].error
+{
+  background-color: #fcc;
+}
+
 
 .form-container input[type="text"]:focus,
 .form-container input[type="email"]:focus
