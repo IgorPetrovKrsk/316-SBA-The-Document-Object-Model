@@ -208,6 +208,7 @@ a:hover {
   }
 }
 
-.img_selected{ /* for image that are selected right now */
-
+.description{
+  position: absolute;
+  visibility: hidden;
 }

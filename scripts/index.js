@@ -141,6 +141,8 @@ function createGameFiled(width, height) {
             let newImgTag = templateDiv.firstElementChild;
             newImgTag.src = `../images/image_${imgArray[ij]}.png`;
             newImgTag.name = `image_${imgArray[ij]}`;
+            let newDescription = newImgTag.nextElementSibling; //just for the sake of experiment. newDescription is not really used in game
+            newDescription.textContent = `image_${imgArray[ij]}`;
             ij++;
             td.appendChild(newImg);
             tr.appendChild(td);
