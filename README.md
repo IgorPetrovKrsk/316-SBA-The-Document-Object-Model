@@ -1,6 +1,7 @@
 This is a simple memory game.
 The game is published on netlify
 https://exquisite-zabaione-1220c8.netlify.app/
+
 You have to find all the pairs.
 You can play 4x3 4x4 5x4 6x4 6x5 grids.
 You will have 10 seconds to memorize the position of pictures before the game starts.
