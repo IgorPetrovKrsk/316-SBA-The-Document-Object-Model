@@ -1,5 +1,5 @@
 This is a simple memory game.
-The game is published on netlify
+The game is published on netlify.
 https://exquisite-zabaione-1220c8.netlify.app/
 
 You have to find all the pairs.
